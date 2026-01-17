@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: typ-frontend-dev
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: student-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
+  sources:
+    - repoURL: https://github.com/Phamthang-25/typ-frontend.git
+      targetRevision: main
+      path: frontend-chart
+      helm:
+        valueFiles:
+          - $values/helm-values/values-dev.yaml
+
+    - repoURL: https://github.com/Phamthang-25/typ-frontend-config.git
+      targetRevision: main
+      ref: values

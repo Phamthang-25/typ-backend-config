@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: typ-backend-dev
+  namespace: argocd
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: student-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
+  sources:
+    - repoURL: https://github.com/Phamthang-25/typ-backend.git
+      targetRevision: main
+      path: backend-chart
+      helm:
+        valueFiles:
+          - $values/helm-values/values-dev.yaml
+
+    # Repo backend-config (chính repo này)
+    - repoURL: https://github.com/Phamthang-25/typ-backend-config.git
+      targetRevision: main
+      ref: values
