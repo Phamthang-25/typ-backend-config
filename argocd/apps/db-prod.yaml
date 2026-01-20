@@ -18,6 +18,4 @@ spec:
     repoURL: https://github.com/Phamthang-25/typ-db.git
     targetRevision: main
     path: db-chart
-    helm:
-      valueFiles:
-        - values.yaml
+    helm: {}
