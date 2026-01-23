@@ -1,6 +1,6 @@
 image:
   repository: thang05/typ-backend
-  tag: "v3.0"
+  tag: "v4.0"
   pullPolicy: IfNotPresent
 
 service:
